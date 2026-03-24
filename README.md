@@ -20,79 +20,64 @@ STEP 5:Include Necessary parameters in each functions.
 # Coding and Output:
 
 ```
-import pandas as pd
+
+import seaborn as sns
 import matplotlib.pyplot as plt
 
-# STEP 1: Include the necessary Library (already done above)
+df = sns.load_dataset("iris")
+plt.figure(figsize=(8,5))
+sns.histplot(df["sepal_length"], kde=True)
+plt.title("Distribution of Sepal Length")
+plt.show()
 
-# STEP 2: Read the Data
-def read_data(filename):
-    """Reads a CSV file and returns a DataFrame."""
-    return pd.read_csv(filename)
 
-# STEP 3 & 4: Visualization Functions
-def plot_histogram(data, column, bins=10):
-    """Draws a histogram for a numeric column."""
-    plt.figure(figsize=(8,5))
-    plt.hist(data[column], bins=bins, alpha=0.7, color='blue', edgecolor='black')
-    plt.title(f'Histogram of {column}')
-    plt.xlabel(column)
-    plt.ylabel('Frequency')
-    plt.show()
+sns.jointplot(x="sepal_length", y="sepal_width", data=df, height=6)
+plt.show()
 
-def plot_boxplot(data, column):
-    """Draws a boxplot for a numeric column."""
-    plt.figure(figsize=(6,5))
-    plt.boxplot(data[column], patch_artist=True)
-    plt.title(f'Boxplot of {column}')
-    plt.ylabel(column)
-    plt.show()
 
-def plot_scatter(data, x_col, y_col):
-    """Draws a scatter plot between two numeric columns."""
-    plt.figure(figsize=(8,5))
-    plt.scatter(data[x_col], data[y_col], alpha=0.6, color='green')
-    plt.title(f'Scatter Plot of {x_col} vs {y_col}')
-    plt.xlabel(x_col)
-    plt.ylabel(y_col)
-    plt.show()
+sns.pairplot(df, hue="species")
+plt.show()
 
-def plot_bar(data, category_col):
-    """Draws a bar plot for a categorical column."""
-    plt.figure(figsize=(8,5))
-    data[category_col].value_counts().plot(kind='bar', color='purple')
-    plt.title(f'Bar Plot of {category_col}')
-    plt.xlabel(category_col)
-    plt.ylabel('Count')
-    plt.show()
 
-def plot_pie(data, category_col):
-    """Draws a pie chart for a categorical column."""
-    plt.figure(figsize=(6,6))
-    data[category_col].value_counts().plot(kind='pie', autopct='%1.1f%%')
-    plt.title(f'Pie Chart of {category_col}')
-    plt.ylabel('')
-    plt.show()
+plt.figure(figsize=(8,6))
+sns.heatmap(df.select_dtypes(include='number').corr(), 
+            annot=True, cmap="coolwarm")
+plt.title("Correlation Heatmap")
+plt.show()
 
-# STEP 5: Use the functions as needed (example below, update columns as appropriate)
-if __name__ == "__main__":
-    df = read_data('bmi.csv')  # Use any available CSV file
-    plot_histogram(df, 'Height', bins=12)
-    plot_boxplot(df, 'Weight')
-    plot_scatter(df, 'Height', 'Weight')
-    plot_bar(df, 'Gender')
-    plot_pie(df, 'Gender')
+
+plt.figure(figsize=(8,5))
+sns.boxplot(x="species", y="petal_length", data=df)
+plt.title("Boxplot of Petal Length")
+plt.show()
+
+
+plt.figure(figsize=(8,5))
+sns.violinplot(x="species", y="petal_width", data=df)
+plt.title("Violinplot of Petal Width")
+plt.show()
+
+
+plt.figure(figsize=(6,4))
+sns.countplot(x="species", data=df)
+plt.title("Count of Species")
+plt.show()
+
+
+plt.figure(figsize=(8,5))
+sns.barplot(x="species", y="sepal_length", data=df)
+plt.title("Average Sepal Length")
+plt.show()
+
 ```
 
-# Result:
 
-<img width="1087" height="590" alt="Screenshot 2025-10-07 215219" src="https://github.com/user-attachments/assets/d3f330db-66cd-4132-9768-ce9135b802ed" />
-<img width="1081" height="565" alt="Screenshot 2025-10-07 215228" src="https://github.com/user-attachments/assets/6688c019-bcd1-4587-827d-da683f77f233" />
-<img width="1121" height="574" alt="Screenshot 2025-10-07 215236" src="https://github.com/user-attachments/assets/6a72e52e-3df6-4b42-9073-e5163378603d" />
-<img width="1247" height="607" alt="Screenshot 2025-10-07 215245" src="https://github.com/user-attachments/assets/70af8610-cd4f-4ee0-93f5-2eb09c66d531" />
-<img width="806" height="610" alt="Screenshot 2025-10-07 215253" src="https://github.com/user-attachments/assets/853ad6a6-5b02-468c-b767-6b6d07ba8a61" />
-
-
-
-
-
+# Output:
+<img width="687" height="468" alt="output 1" src="https://github.com/user-attachments/assets/6ec6c1b7-2243-4f0b-853d-d567634e426e" />
+<img width="589" height="590" alt="output 2" src="https://github.com/user-attachments/assets/ae1fac38-f7f6-4370-9965-d10bf8d6024a" />
+<img width="1112" height="986" alt="output 3" src="https://github.com/user-attachments/assets/afc42941-eab4-4d49-a47c-2aa9ba5b8f46" />
+<img width="637" height="526" alt="output 4" src="https://github.com/user-attachments/assets/3c60f828-47a9-475c-91d0-6ddab3a986c1" />
+<img width="678" height="468" alt="output 5" src="https://github.com/user-attachments/assets/a2ec23aa-2ab5-4772-afff-3dbfb91d01b3" />
+<img width="691" height="468" alt="output 6" src="https://github.com/user-attachments/assets/a0d00388-caa5-4d9f-bad3-3823849c9a63" />
+<img width="532" height="391" alt="output 7" src="https://github.com/user-attachments/assets/add1cd08-f244-4d35-94df-863b62f1dd25" />
+<img width="678" height="468" alt="output 8" src="https://github.com/user-attachments/assets/faf5e508-469c-45bb-9327-95c2b621d8f4" />
